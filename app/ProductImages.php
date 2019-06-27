@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryProduct extends Model
+class ProductImages extends Model
 {
     public $timestamps = false;
 }

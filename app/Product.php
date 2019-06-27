@@ -17,5 +17,16 @@ class Product extends Model
         'language',
         'description',
         'rating',
+        'category_id'
     ];
+
+    public function images()
+    {
+        return $this->hasMany('App\ProductImages');
+    }
+
+    public function getTop()
+    {
+        return $this->orderBy('rating')->limit(6)->get();
+    }
 }

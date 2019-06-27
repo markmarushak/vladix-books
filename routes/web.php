@@ -20,6 +20,9 @@ Auth::routes();
 Route::group(['namespace' => 'Home'], function (){
 
     Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/category/{id}', 'HomeController@category')->name('home.category');
+    Route::get('/product/{id}', 'HomeController@product')->name('home.product');
+
     Route::group(['prefix' => 'cabinet', 'middleware' => 'auth'], function () {
         Route::get('/', 'HomeController@cabinet')->name('cabinet.index');
 
@@ -33,8 +36,7 @@ Route::group(['namespace' => 'Home'], function (){
 
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', 'CategoryController@index')->name('category.index');
-            Route::get('/store', 'CategoryController@store')->name('category.store');
-            Route::post('/', 'CategoryController@store')->name('category.store.new');
+            Route::post('/', 'CategoryController@store')->name('category.store');
             Route::get('/update/{id}', 'CategoryController@update')->name('category.update');
             Route::get('/delete/{id}', 'CategoryController@delete')->name('category.delete');
         });

@@ -28,18 +28,15 @@ class ProductController extends Controller
                 'edition' => 'required',
                 'language' => 'required',
                 'description' => 'required',
+                'category_id' => 'required',
         ];
 
         if(!empty($request->all()) && $request->validate($rules)){
-            $data = $request->except(['category', 'submit']);
-            $producted = $product::create($data);
-            if($producted->id){
-                CategoryProduct::created([
-                    'product_id' => $producted->id,
-                    'category_id' => $request->category
-                ]);
+            $data = $request->except(['submit']);
+            $store = $product::create($data);
+            if($store->id){
                 $products = $product::all();
-                return redirect()->route('product.index', [
+                return redirect()->route('products.index', [
                     'products' => $products
                 ]);
             }
@@ -55,16 +52,31 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         $rules = [
-            'name' => 'required'
+            'name' => 'required',
+            'category_id' => 'required'
         ];
-        $request->validate($request->all(), $rules);
-        Product::find($request->id)->update($request->all());
+        if($request->validate($request->all(), $rules)){
+            Product::find($request->id)->update($request->all());
+            return redirect()->route('products.index');
+        }else{
+            $categories = Category::all();
+            $product = Product::find($request->id);
+        }
 
-        return view('cabinet.product.update');
+        return view('cabinet.product.update', [
+            'categories' => $categories,
+            'product' => $product
+        ]);
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, Product $product)
     {
-        return view('cabinet.product.delete');
+        if($request->id){
+            $product::find($request->id)->delete();
+        }
+        $data = $product::all();
+        return redirect()->route('products.index',[
+            'products' => $data
+        ]);
     }
 }

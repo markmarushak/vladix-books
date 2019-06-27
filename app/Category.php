@@ -10,5 +10,19 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
-    public $timestamps = false;
+
+    public function products()
+    {
+        return $this->hasMany('App\Product', 'id', 'category_id');
+    }
+
+    public function getTop()
+    {
+        return $this->orderBy('rating')->limit(6)->get();
+    }
+
+    public function getProductCount()
+    {
+        return $this->products()->get();
+    }
 }

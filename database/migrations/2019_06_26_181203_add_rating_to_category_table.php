@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductToCategoryTable extends Migration
+class AddRatingToCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateProductToCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_to_category', function (Blueprint $table) {
-            $table->integer('product_id');
-            $table->integer('category_id');
+        Schema::table('category', function (Blueprint $table) {
+            $table->integer('rating')->default(0);
         });
     }
 
@@ -26,6 +25,8 @@ class CreateProductToCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_to_category');
+        Schema::table('category', function (Blueprint $table) {
+            $table->dropColumn('rating');
+        });
     }
 }

@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at', 'desc')->get();
         return view('cabinet.category.index',[
             'categories' => $categories
         ]);
@@ -19,7 +19,6 @@ class CategoryController extends Controller
     public function store(Request $request, Category $category)
     {
         $data = $request->all();
-        $categories = $category::all();
         $rules = [
             'name' => 'required|unique:category'
         ];
@@ -27,9 +26,10 @@ class CategoryController extends Controller
             $category::create([
                 'name' => $request->name
             ]);
+            $data = $category::all();
         }
-        return view('cabinet.category.store', [
-            'categories' => $categories
+        return redirect()->route('category.index', [
+            'categories' => $data
         ]);
     }
 
@@ -59,7 +59,7 @@ class CategoryController extends Controller
             $category::find($request->id)->delete();
         }
         $data = $category::all();
-        return view('cabinet.product.index',[
+        return redirect()->route('category.index',[
             'categories' => $data
         ]);
     }
