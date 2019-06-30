@@ -49,6 +49,16 @@ class ProductController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        $categories = Category::all();
+        $product = Product::find($id);
+        return view('cabinet.product.update', [
+            'categories' => $categories,
+            'product' => $product
+        ]);
+    }
+
     public function update(Request $request)
     {
         $rules = [
@@ -58,15 +68,9 @@ class ProductController extends Controller
         if($request->validate($request->all(), $rules)){
             Product::find($request->id)->update($request->all());
             return redirect()->route('products.index');
-        }else{
-            $categories = Category::all();
-            $product = Product::find($request->id);
         }
 
-        return view('cabinet.product.update', [
-            'categories' => $categories,
-            'product' => $product
-        ]);
+        return redirect()->route('products.index');
     }
 
     public function delete(Request $request, Product $product)

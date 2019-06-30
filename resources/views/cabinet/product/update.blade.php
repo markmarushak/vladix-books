@@ -4,7 +4,7 @@
 
     <div class="comment modal_form ">
         <h2>Добавить книгу</h2>
-        <form action="{{ route('products.update', Request()->id) }}"></form>
+        <form action="{{ route('products.update', Request()->id) }}">
 
             <div class="row">
                 <div class="col-sm-12">
@@ -17,7 +17,11 @@
                             <select class="form-control" name="category">
                                 <option value="">Выберите Категорию</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                    @if($category['id'] == $product['category_id'])
+                                        <option value="{{ $category['id'] }}" selected>{{ $category['name'] }}</option>
+                                    @else
+                                        <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

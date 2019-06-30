@@ -23,23 +23,28 @@ Route::group(['namespace' => 'Home'], function (){
     Route::get('/category/{id}', 'HomeController@category')->name('home.category');
     Route::get('/product/{id}', 'HomeController@product')->name('home.product');
 
+
     Route::group(['prefix' => 'cabinet', 'middleware' => 'auth'], function () {
         Route::get('/', 'HomeController@cabinet')->name('cabinet.index');
 
+
         Route::group(['prefix' => 'product',], function () {
-            Route::get('/list', 'ProductController@index')->name('products.index');
-            Route::get('/store', 'ProductController@store')->name('products.store');
-            Route::post('/', 'ProductController@store')->name('products.store.new');
-            Route::get('/update/{id}', 'ProductController@update')->name('products.update');
-            Route::get('/delete/{id}', 'ProductController@delete')->name('products.delete');
+            Route::get('/', 'ProductController@index')->name('products.index');
+            Route::post('/', 'ProductController@store')->name('products.store');
+            Route::put('/{id}', 'ProductController@edit')->name('products.edit');
+            Route::post('/{product}', 'ProductController@update')->name('products.update');
+            Route::delete('/{id}', 'ProductController@delete')->name('products.delete');
         });
 
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', 'CategoryController@index')->name('category.index');
             Route::post('/', 'CategoryController@store')->name('category.store');
-            Route::get('/update/{id}', 'CategoryController@update')->name('category.update');
-            Route::get('/delete/{id}', 'CategoryController@delete')->name('category.delete');
+            Route::put('/{id}', 'CategoryController@edit')->name('category.edit');
+            Route::post('/{category}', 'CategoryController@update')->name('category.update');
+            Route::delete('/{id}', 'CategoryController@delete')->name('category.delete');
         });
     });
 
+
 });
+
