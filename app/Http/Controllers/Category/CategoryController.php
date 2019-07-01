@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Category;
 
-use App\Category;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::orderBy('created_at', 'desc')->get();
-        return view('cabinet.category.index',[
+        return view('admin.category.index',[
             'categories' => $categories
         ]);
     }
@@ -47,7 +47,7 @@ class CategoryController extends Controller
             $category = $category::find($request->id);
         }
 
-        return view('cabinet.category.update', [
+        return view('admin.category.update', [
             'category' => $category,
             'request'  => $request
         ]);

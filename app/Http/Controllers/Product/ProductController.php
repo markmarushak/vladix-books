@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Product;
 
-use App\Category;
-use App\CategoryProduct;
-use App\Product;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductImages;
+use App\Traits\Uploadable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    use Uploadable;
+
     public function index(Category $category, Product $products)
     {
-        return view('cabinet.product.index',[
-            'products' => $products->all(),
+        return view('admin.product.index',[
+            'products' => $products->orderBy('created_at','desc')->get(),
             'categories' => $category->all()
         ]);
     }
@@ -29,22 +32,29 @@ class ProductController extends Controller
                 'language' => 'required',
                 'description' => 'required',
                 'category_id' => 'required',
+                'images'
         ];
 
         if(!empty($request->all()) && $request->validate($rules)){
-            $data = $request->except(['submit']);
+            $data = $request->except(['submit','images']);
             $store = $product::create($data);
             if($store->id){
-                $products = $product::all();
+                $path = $this->upload($request->images);
+                $product_images = ProductImages();
+                $product_images->path = $path;
+                $product_images->product_id = $path;
+                $product_images->save();
+
+                $products = $product::orderBy('created_at')->get();
                 return redirect()->route('products.index', [
-                    'products' => $products
+//                    'products' => $products
                 ]);
             }
         }
 
         $categories = Category::all();
 
-        return view('cabinet.product.store', [
+        return view('admin.product.store', [
             'categories' => $categories
         ]);
     }
@@ -53,7 +63,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $product = Product::find($id);
-        return view('cabinet.product.update', [
+        return view('admin.product.update', [
             'categories' => $categories,
             'product' => $product
         ]);

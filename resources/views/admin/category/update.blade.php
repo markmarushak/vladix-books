@@ -1,6 +1,6 @@
-@extends('cabinet.index')
+@extends('admin.index')
 
-@section('cabinet-content')
+@section('admin')
 
     <div class="comment modal_form ">
         <h2>Добавить книгу</h2>

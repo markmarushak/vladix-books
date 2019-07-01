@@ -3,7 +3,7 @@
 @section('content')
 
         <div class="container">
-            {{-- slider --}}
+
             <div class="row">
 
                 <div class="col-sm-12">
@@ -32,6 +32,7 @@
                     </div>
 
                 </div>
+
 
             </div>
 

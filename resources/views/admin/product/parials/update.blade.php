@@ -1,16 +1,13 @@
-@extends('cabinet.index')
+@extends('admin.index')
 
-@section('cabinet-content')
+@section('admin')
 
     <div class="comment modal_form ">
         <h2>Добавить книгу</h2>
-        <form action="{{ route('products.update', Request()->id) }}">
+        <form action="{{ route('products.update', 1) }}">
 
             <div class="row">
                 <div class="col-sm-12">
-                    @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                     <div class="row">
 
                         <div class="col-sm-6">

@@ -1,14 +1,12 @@
-@extends('cabinet.index')
+@extends('admin.index')
 
-@section('cabinet-content')
+@section('admin')
 
     <h2>Добавить книгу</h2>
     <form method="post" action="{{ route('category.store') }}">
         @csrf
         <div class="row">
-            @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
+
             <div class="col-sm-12 input-group">
                 <input class="form-control" type="text" name="name" placeholder="Название">
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +22,7 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany('App\ProductImages');
+        return $this->hasMany('App\Models\ProductImages');
     }
 
     public function getTop()
