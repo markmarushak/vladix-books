@@ -20,11 +20,6 @@
                                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                                                placeholder="Имя">
 
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -35,11 +30,6 @@
                                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus
                                                placeholder="Телефон">
 
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -50,11 +40,6 @@
                                                name="email" value="{{ old('email') }}" required autocomplete="email"
                                                placeholder="E-mail">
 
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -65,11 +50,6 @@
                                                class="form-control @error('password') is-invalid @enderror" name="password"
                                                required autocomplete="new-password" placeholder="Пароль">
 
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
                                     </div>
                                 </div>
 

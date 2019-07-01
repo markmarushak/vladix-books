@@ -18,11 +18,7 @@
                                            autofocus
                                            placeholder="E-mail">
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+
                                 </div>
 
                                 <div class="col-md-12">
@@ -31,12 +27,7 @@
                                            required
                                            autocomplete="current-password" placeholder="Password">
 
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                                   
                                 <button class="btn btn-main">Вход</button>
                             </form>
                         </div>
